@@ -18,8 +18,13 @@ classifier = Classifier("Model/keras_model.h5", "Model/labels.txt")
 labels = ["A", "B", "C", "Thumbs-up", "peace sign", "Freak-off","Love"]
 while True:
     success, img = cap.read()
-    imgcopy=img.copy()
+    if not success or img is None:
+        print("image nahi aa rahi")
+        continue
+
+    imgcopy = img.copy()
     img = detector.findHands(img)
+
     lmlist, bbox = detector.findPositions(img)
     if bbox:
         x = bbox[0]
